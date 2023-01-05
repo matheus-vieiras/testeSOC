@@ -1,5 +1,6 @@
 package com.soc.testSOC.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public class Funcionario implements Serializable {
     private Long id;
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "funcionario")
     private List<ExamesRealizados> exRealizados = new ArrayList<>();
 
