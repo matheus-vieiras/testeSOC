@@ -23,14 +23,18 @@ public class ExamesRealizados implements Serializable {
     @JoinColumn(name = "id_func")
     private Funcionario funcionario;
 
-    public ExamesRealizados() {
+    @ManyToOne
+    @JoinColumn(name = "id_exame")
+    private Exames exames;
 
+    public ExamesRealizados() {
     }
 
-    public ExamesRealizados(Long id, Instant date, Funcionario funcionario) {
+    public ExamesRealizados(Long id, Instant date, Funcionario funcionario, Exames exames) {
         this.id = id;
         this.date = date;
         this.funcionario = funcionario;
+        this.exames = exames;
     }
 
     public Long getId() {
@@ -55,6 +59,14 @@ public class ExamesRealizados implements Serializable {
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public Exames getExames() {
+        return exames;
+    }
+
+    public void setExames(Exames exames) {
+        this.exames = exames;
     }
 
     @Override

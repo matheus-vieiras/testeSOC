@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_funcionario")
-public class Funcionario implements Serializable {
+@Table(name = "tb_exame")
+public class Exames implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -19,13 +19,13 @@ public class Funcionario implements Serializable {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "funcionario")
+    @OneToMany(mappedBy = "exames")
     private List<ExamesRealizados> examesRealizados = new ArrayList<>();
 
-    public Funcionario() {
+    public Exames() {
     }
 
-    public Funcionario(Long id, String name) {
+    public Exames(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -54,8 +54,8 @@ public class Funcionario implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Funcionario that = (Funcionario) o;
-        return id.equals(that.id);
+        Exames exames = (Exames) o;
+        return id.equals(exames.id);
     }
 
     @Override
