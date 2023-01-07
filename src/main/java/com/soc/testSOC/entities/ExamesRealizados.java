@@ -1,5 +1,6 @@
 package com.soc.testSOC.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.soc.testSOC.entities.pk.ExamesRealizadosPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -15,7 +16,7 @@ public class ExamesRealizados implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private ExamesRealizadosPK id;
+    private ExamesRealizadosPK id = new ExamesRealizadosPK();
 
     private Instant moment;
 
@@ -28,6 +29,7 @@ public class ExamesRealizados implements Serializable {
         this.moment = moment;
     }
 
+    @JsonIgnore
     public Exames getExames() {
         return id.getExames();
     }

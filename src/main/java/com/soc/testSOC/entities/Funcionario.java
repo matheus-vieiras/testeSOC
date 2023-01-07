@@ -1,12 +1,8 @@
 package com.soc.testSOC.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.soc.testSOC.entities.pk.ExamesRealizadosPK;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity

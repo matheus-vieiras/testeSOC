@@ -5,9 +5,7 @@ import com.soc.testSOC.entities.pk.ExamesRealizadosPK;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_exame")
@@ -18,6 +16,9 @@ public class Exames implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @OneToMany(mappedBy = "id.exames")
+    private Set<ExamesRealizados> examesRealizados = new HashSet<>();
 
     public Exames() {
     }
@@ -43,6 +44,9 @@ public class Exames implements Serializable {
         this.name = name;
     }
 
+    public Set<ExamesRealizados> getExamesRealizados() {
+        return examesRealizados;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
