@@ -1,6 +1,7 @@
 package com.soc.testSOC.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.soc.testSOC.entities.pk.ExamesRealizadosPK;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -17,10 +18,6 @@ public class Exames implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "exames")
-    private List<ExamesRealizados> examesRealizados = new ArrayList<>();
 
     public Exames() {
     }
@@ -44,10 +41,6 @@ public class Exames implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<ExamesRealizados> getExamesRealizados() {
-        return examesRealizados;
     }
 
     @Override

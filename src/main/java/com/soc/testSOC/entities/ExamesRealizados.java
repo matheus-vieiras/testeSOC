@@ -1,7 +1,9 @@
 package com.soc.testSOC.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import com.soc.testSOC.entities.pk.ExamesRealizadosPK;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -12,61 +14,42 @@ import java.util.Objects;
 public class ExamesRealizados implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private ExamesRealizadosPK id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Instant date;
-
-    @ManyToOne
-    @JoinColumn(name = "id_func")
-    private Funcionario funcionario;
-
-    @ManyToOne
-    @JoinColumn(name = "id_exame")
-    private Exames exames;
+    private Instant moment;
 
     public ExamesRealizados() {
     }
 
-    public ExamesRealizados(Long id, Instant date, Funcionario funcionario, Exames exames) {
-        this.id = id;
-        this.date = date;
-        this.funcionario = funcionario;
-        this.exames = exames;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Instant getDate() {
-        return date;
-    }
-
-    public void setDate(Instant date) {
-        this.date = date;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public ExamesRealizados(Exames exames, Funcionario funcionario, Instant moment) {
+        id.setExames(exames);
+        id.setFuncionario(funcionario);
+        this.moment = moment;
     }
 
     public Exames getExames() {
-        return exames;
+        return id.getExames();
     }
 
     public void setExames(Exames exames) {
-        this.exames = exames;
+        id.setExames(exames);
+    }
+
+    public Funcionario getFuncionario() {
+        return id.getFuncionario();
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        id.setFuncionario(funcionario);
+    }
+
+    public Instant getMoment() {
+        return moment;
+    }
+
+    public void setMoment(Instant moment) {
+        this.moment = moment;
     }
 
     @Override
