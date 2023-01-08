@@ -22,4 +22,22 @@ public class ExamesService {
         Optional<Exames> obj = repository.findById(id);
         return obj.get();
     }
+
+    public Exames insert(Exames obj) {
+        return repository.save(obj);
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
+    public Exames update(Long id, Exames obj) {
+        Exames entity = repository.getReferenceById(id);
+        updateData(entity, obj);
+        return repository.save(entity);
+    }
+
+    private void updateData(Exames entity, Exames obj) {
+        entity.setName(obj.getName());
+    }
 }
