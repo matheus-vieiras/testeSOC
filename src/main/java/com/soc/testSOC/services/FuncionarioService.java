@@ -26,4 +26,8 @@ public class FuncionarioService {
     public Funcionario insert(Funcionario obj) {
         return repository.save(obj);
     }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }
