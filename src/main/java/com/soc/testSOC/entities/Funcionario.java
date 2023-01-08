@@ -1,9 +1,10 @@
 package com.soc.testSOC.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_funcionario")
@@ -14,6 +15,9 @@ public class Funcionario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @OneToMany(mappedBy = "id.funcionario")
+    private List<ExamesRealizados> examesRealizados = new ArrayList<>();
 
     public Funcionario() {
     }
@@ -39,16 +43,12 @@ public class Funcionario implements Serializable {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Funcionario that = (Funcionario) o;
-        return id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    @JsonIgnore
+    public List<Exames> getExames() {
+        List<Exames> list = new ArrayList<>();
+        for (ExamesRealizados x : examesRealizados) {
+            list.add(x.getExames());
+        }
+        return list;
     }
 }

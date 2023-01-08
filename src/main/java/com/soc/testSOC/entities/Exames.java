@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
-@Table(name = "tb_exame")
+@Table(name = "tb_exames")
 public class Exames implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -18,7 +18,7 @@ public class Exames implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "id.exames")
-    private Set<ExamesRealizados> examesRealizados = new HashSet<>();
+    private List<ExamesRealizados> examesRealizados = new ArrayList<>();
 
     public Exames() {
     }
@@ -44,19 +44,8 @@ public class Exames implements Serializable {
         this.name = name;
     }
 
-    public Set<ExamesRealizados> getExamesRealizados() {
+    public List<ExamesRealizados> getExamesRealizados() {
         return examesRealizados;
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Exames exames = (Exames) o;
-        return id.equals(exames.id);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
