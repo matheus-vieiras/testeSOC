@@ -16,7 +16,8 @@ public class Funcionario implements Serializable {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "id.funcionario")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "funcionario")
     private List<ExamesRealizados> examesRealizados = new ArrayList<>();
 
     public Funcionario() {
@@ -43,13 +44,9 @@ public class Funcionario implements Serializable {
         this.name = name;
     }
 
-    @JsonIgnore
-    public List<Exames> getExames() {
-        List<Exames> list = new ArrayList<>();
-        for (ExamesRealizados x : examesRealizados) {
-            list.add(x.getExames());
-        }
-        return list;
+
+    public List<ExamesRealizados> getExamesRealizados() {
+        return examesRealizados;
     }
 
     @Override
