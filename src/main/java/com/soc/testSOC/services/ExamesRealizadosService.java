@@ -43,3 +43,4 @@ public class ExamesRealizadosService {
         entity.setFuncionario(obj.getFuncionario());
     }
 }
+

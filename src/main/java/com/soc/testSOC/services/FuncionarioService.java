@@ -40,4 +40,5 @@ public class FuncionarioService {
     private void updateData(Funcionario entity, Funcionario obj) {
         entity.setName(obj.getName());
     }
+
 }

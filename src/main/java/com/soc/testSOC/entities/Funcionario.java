@@ -17,7 +17,7 @@ public class Funcionario implements Serializable {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "funcionario")
+    @ManyToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
     private List<ExamesRealizados> examesRealizados = new ArrayList<>();
 
     public Funcionario() {
