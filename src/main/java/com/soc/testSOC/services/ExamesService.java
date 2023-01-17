@@ -1,17 +1,12 @@
 package com.soc.testSOC.services;
 
 import com.soc.testSOC.entities.Exames;
-import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.repositories.ExamesRepository;
 import com.soc.testSOC.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +30,11 @@ public class ExamesService {
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     public Exames update(Long id, Exames obj) {
