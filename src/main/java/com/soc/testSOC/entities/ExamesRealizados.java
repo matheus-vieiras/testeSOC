@@ -31,20 +31,16 @@ public class ExamesRealizados implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "funcionario_id"))
     private List<Funcionario> funcionario = new ArrayList<>();
 
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-//    private Instant moment;
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT")
+    private LocalDateTime date;
 
     public ExamesRealizados() {
 
     }
 
-    public ExamesRealizados(Long id, Exames exames, LocalDate date) {
+    public ExamesRealizados(Long id, Exames exames, LocalDateTime date) {
         this.id = id;
         this.exames = exames;
-//        this.moment = moment;
         this.date = date;
     }
 
@@ -72,21 +68,13 @@ public class ExamesRealizados implements Serializable {
         this.funcionario = funcionario;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
-
-//    public Instant getMoment() {
-//        return moment;
-//    }
-//
-//    public void setMoment(Instant moment) {
-//        this.moment = moment;
-//    }
 
     @Override
     public boolean equals(Object o) {

@@ -12,6 +12,6 @@ import java.time.LocalDateTime;
 public interface ExamesRealizadosRepository extends JpaRepository<ExamesRealizados, Long> {
 
     @Query("SELECT obj FROM ExamesRealizados obj WHERE obj.date BETWEEN :min AND :max ORDER BY obj.exames DESC")
-    Page<ExamesRealizados> findExamesRealizados(LocalDate min, LocalDate max, Pageable pageable);
+    Page<ExamesRealizados> findExamesRealizados(LocalDateTime min, LocalDateTime max, Pageable pageable);
 
 }

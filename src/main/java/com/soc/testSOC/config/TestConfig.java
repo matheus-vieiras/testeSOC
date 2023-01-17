@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
@@ -40,9 +41,9 @@ public class TestConfig implements CommandLineRunner {
         Exames ex2 = new Exames(null, "Ultrassonografia");
         Exames ex3 = new Exames(null, "Glicemia");
 
-        ExamesRealizados er1 = new ExamesRealizados(null, ex1, LocalDate.parse("2023-01-17"));
-        ExamesRealizados er2 = new ExamesRealizados(null, ex2, LocalDate.parse("2023-01-15"));
-        ExamesRealizados er3 = new ExamesRealizados(null, ex3, LocalDate.parse("2023-01-12"));
+        ExamesRealizados er1 = new ExamesRealizados(null, ex1, LocalDateTime.parse("2023-01-17T10:00:00"));
+        ExamesRealizados er2 = new ExamesRealizados(null, ex2, LocalDateTime.parse("2023-01-15T11:00:00"));
+        ExamesRealizados er3 = new ExamesRealizados(null, ex3, LocalDateTime.parse("2023-01-12T14:33:00"));
 
 
         funcionarioRepository.saveAll(Arrays.asList(f1, f2, f3));
