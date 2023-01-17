@@ -3,6 +3,7 @@ package com.soc.testSOC.services;
 import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.repositories.ExamesRealizadosRepository;
 import com.soc.testSOC.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -53,9 +54,13 @@ public class ExamesRealizadosService {
     }
 
     public ExamesRealizados update(Long id, ExamesRealizados obj) {
-        ExamesRealizados entity = repository.getReferenceById(id);
-        updateData(entity, obj);
-        return repository.save(entity);
+        try {
+            ExamesRealizados entity = repository.getReferenceById(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(ExamesRealizados entity, ExamesRealizados obj) {

@@ -3,6 +3,7 @@ package com.soc.testSOC.services;
 import com.soc.testSOC.entities.Funcionario;
 import com.soc.testSOC.repositories.FuncionarioRepository;
 import com.soc.testSOC.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -38,9 +39,13 @@ public class FuncionarioService {
     }
 
     public Funcionario update(Long id, Funcionario obj) {
-        Funcionario entity = repository.getReferenceById(id);
-        updateData(entity, obj);
-        return repository.save(entity);
+        try {
+            Funcionario entity = repository.getReferenceById(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(Funcionario entity, Funcionario obj) {

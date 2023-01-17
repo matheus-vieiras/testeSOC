@@ -3,6 +3,7 @@ package com.soc.testSOC.services;
 import com.soc.testSOC.entities.Exames;
 import com.soc.testSOC.repositories.ExamesRepository;
 import com.soc.testSOC.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -38,9 +39,13 @@ public class ExamesService {
     }
 
     public Exames update(Long id, Exames obj) {
-        Exames entity = repository.getReferenceById(id);
-        updateData(entity, obj);
-        return repository.save(entity);
+        try {
+            Exames entity = repository.getReferenceById(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(Exames entity, Exames obj) {
