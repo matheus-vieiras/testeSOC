@@ -2,6 +2,7 @@ package com.soc.testSOC.services;
 
 import com.soc.testSOC.entities.Funcionario;
 import com.soc.testSOC.repositories.FuncionarioRepository;
+import com.soc.testSOC.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class FuncionarioService {
 
     public Funcionario findById(Long id) {
         Optional<Funcionario> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Funcionario insert(Funcionario obj) {

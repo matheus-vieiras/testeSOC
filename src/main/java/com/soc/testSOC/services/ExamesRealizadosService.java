@@ -2,6 +2,7 @@ package com.soc.testSOC.services;
 
 import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.repositories.ExamesRealizadosRepository;
+import com.soc.testSOC.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +36,7 @@ public class ExamesRealizadosService {
 
     public ExamesRealizados findById(Long id) {
         Optional<ExamesRealizados> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public ExamesRealizados insert(ExamesRealizados obj) {
