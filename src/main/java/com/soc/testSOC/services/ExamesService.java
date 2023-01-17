@@ -1,10 +1,16 @@
 package com.soc.testSOC.services;
 
 import com.soc.testSOC.entities.Exames;
+import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.repositories.ExamesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 

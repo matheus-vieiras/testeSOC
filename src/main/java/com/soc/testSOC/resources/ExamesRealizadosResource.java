@@ -3,6 +3,11 @@ package com.soc.testSOC.resources;
 import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.services.ExamesRealizadosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,9 +23,18 @@ public class ExamesRealizadosResource {
     private ExamesRealizadosService service;
 
     @GetMapping
-    public ResponseEntity<List<ExamesRealizados>> findAll() {
-        List<ExamesRealizados> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<Page<ExamesRealizados>> findAll(
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC)
+            Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
+    }
+
+    @GetMapping(value = "/search-date")
+    public Page<ExamesRealizados> findExamesRealizados(
+            @RequestParam(value = "minDate", defaultValue = "") String minDate,
+            @RequestParam(value = "maxDate", defaultValue = "") String maxDate,
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        return service.findExamesRealizados(minDate, maxDate, pageable);
     }
 
     @GetMapping(value = "/{id}")

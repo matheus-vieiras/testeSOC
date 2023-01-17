@@ -1,10 +1,13 @@
 package com.soc.testSOC.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +31,21 @@ public class ExamesRealizados implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "funcionario_id"))
     private List<Funcionario> funcionario = new ArrayList<>();
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Instant moment;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+//    private Instant moment;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     public ExamesRealizados() {
 
     }
 
-    public ExamesRealizados(Long id, Exames exames, Instant moment) {
+    public ExamesRealizados(Long id, Exames exames, LocalDate date) {
         this.id = id;
         this.exames = exames;
-        this.moment = moment;
+//        this.moment = moment;
+        this.date = date;
     }
 
     public Long getId() {
@@ -65,13 +72,21 @@ public class ExamesRealizados implements Serializable {
         this.funcionario = funcionario;
     }
 
-    public Instant getMoment() {
-        return moment;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setMoment(Instant moment) {
-        this.moment = moment;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
+
+//    public Instant getMoment() {
+//        return moment;
+//    }
+//
+//    public void setMoment(Instant moment) {
+//        this.moment = moment;
+//    }
 
     @Override
     public boolean equals(Object o) {

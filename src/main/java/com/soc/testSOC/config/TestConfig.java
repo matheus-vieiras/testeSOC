@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 @Configuration
@@ -38,9 +40,9 @@ public class TestConfig implements CommandLineRunner {
         Exames ex2 = new Exames(null, "Ultrassonografia");
         Exames ex3 = new Exames(null, "Glicemia");
 
-        ExamesRealizados er1 = new ExamesRealizados(null, ex1, Instant.parse("2023-01-05T19:53:07Z"));
-        ExamesRealizados er2 = new ExamesRealizados(null, ex2, Instant.parse("2023-01-07T07:30:02Z"));
-        ExamesRealizados er3 = new ExamesRealizados(null, ex3, Instant.parse("2023-01-07T10:30:02Z"));
+        ExamesRealizados er1 = new ExamesRealizados(null, ex1, LocalDate.parse("2023-01-17"));
+        ExamesRealizados er2 = new ExamesRealizados(null, ex2, LocalDate.parse("2023-01-15"));
+        ExamesRealizados er3 = new ExamesRealizados(null, ex3, LocalDate.parse("2023-01-12"));
 
 
         funcionarioRepository.saveAll(Arrays.asList(f1, f2, f3));
