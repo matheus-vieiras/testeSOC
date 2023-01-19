@@ -4,6 +4,7 @@ import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.services.ExamesRealizadosService;
 import com.soc.testSOC.services.ExamesService;
 import com.soc.testSOC.services.FuncionarioService;
+import com.soc.testSOC.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/exames-realizados")
@@ -53,14 +55,17 @@ public class ExamesRealizadosResource {
 
     @PostMapping
     public ResponseEntity<Object> insert(@RequestBody ExamesRealizados obj) {
+        try {
             if (service.existsByDate(obj.getDate()) && service.existsByExames(obj.getExames().getName()) && service.existsByFuncionario(obj.getFuncionario().toString())) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Duplicidade ao registrar o exame realizado. VERIFIQUE!!!");
             }
-                obj = service.insert(obj);
-                URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                        .buildAndExpand(obj.getId()).toUri();
-                return ResponseEntity.created(uri).body(obj);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Duplicidade ao registrar o exame realizado. VERIFIQUE!!!");
         }
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);
+    }
 
 
     @DeleteMapping(value = "/{id}")

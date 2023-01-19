@@ -1,5 +1,6 @@
 package com.soc.testSOC.services;
 
+import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.entities.Funcionario;
 import com.soc.testSOC.repositories.FuncionarioRepository;
 import com.soc.testSOC.services.exceptions.ResourceNotFoundException;
@@ -55,4 +56,5 @@ public class FuncionarioService {
     public boolean existsByName(String name) {
         return repository.existsByName(name);
     }
+
 }

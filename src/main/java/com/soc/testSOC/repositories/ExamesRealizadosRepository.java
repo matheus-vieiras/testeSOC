@@ -1,6 +1,5 @@
 package com.soc.testSOC.repositories;
 
-import com.soc.testSOC.entities.Exames;
 import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.entities.Funcionario;
 import org.springframework.data.domain.Page;
@@ -8,9 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
 
 public interface ExamesRealizadosRepository extends JpaRepository<ExamesRealizados, Long> {
 
@@ -22,5 +22,4 @@ public interface ExamesRealizadosRepository extends JpaRepository<ExamesRealizad
     boolean existsByExames(String name);
 
     boolean existsByFuncionario(String name);
-
 }

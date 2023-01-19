@@ -1,5 +1,6 @@
 package com.soc.testSOC.resources;
 
+import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.entities.Funcionario;
 import com.soc.testSOC.services.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
