@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ExamesRepository extends JpaRepository<Exames, Long> {
 
+    boolean existsByName(String name);
+
 }

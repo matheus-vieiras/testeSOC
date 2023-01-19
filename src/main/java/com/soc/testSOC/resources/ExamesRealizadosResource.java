@@ -2,6 +2,8 @@ package com.soc.testSOC.resources;
 
 import com.soc.testSOC.entities.ExamesRealizados;
 import com.soc.testSOC.services.ExamesRealizadosService;
+import com.soc.testSOC.services.ExamesService;
+import com.soc.testSOC.services.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,12 @@ public class ExamesRealizadosResource {
 
     @Autowired
     private ExamesRealizadosService service;
+
+    @Autowired
+    private FuncionarioService funcService;
+
+    @Autowired
+    private ExamesService examesService;
 
     @GetMapping
     public ResponseEntity<Page<ExamesRealizados>> findAll(
@@ -44,12 +52,16 @@ public class ExamesRealizadosResource {
     }
 
     @PostMapping
-    public ResponseEntity<ExamesRealizados> insert(@RequestBody ExamesRealizados obj) {
-        obj = service.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).body(obj);
-    }
+    public ResponseEntity<Object> insert(@RequestBody ExamesRealizados obj) {
+            if (service.existsByDate(obj.getDate()) && service.existsByExames(obj.getExames().getName()) && service.existsByFuncionario(obj.getFuncionario().toString())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Duplicidade ao registrar o exame realizado. VERIFIQUE!!!");
+            }
+                obj = service.insert(obj);
+                URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                        .buildAndExpand(obj.getId()).toUri();
+                return ResponseEntity.created(uri).body(obj);
+        }
+
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

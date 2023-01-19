@@ -52,4 +52,7 @@ public class FuncionarioService {
         entity.setName(obj.getName());
     }
 
+    public boolean existsByName(String name) {
+        return repository.existsByName(name);
+    }
 }

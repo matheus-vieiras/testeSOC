@@ -3,6 +3,7 @@ package com.soc.testSOC.resources;
 import com.soc.testSOC.entities.Funcionario;
 import com.soc.testSOC.services.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,7 +31,10 @@ public class FuncionarioResource {
     }
 
     @PostMapping
-    public ResponseEntity<Funcionario> insert(@RequestBody Funcionario obj) {
+    public ResponseEntity<Object> insert(@RequestBody Funcionario obj) {
+        if (service.existsByName(obj.getName())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Já existe um funcionario com o mesmo nome na base de dados!!!");
+        }
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(obj.getId()).toUri();

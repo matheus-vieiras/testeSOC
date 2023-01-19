@@ -51,4 +51,8 @@ public class ExamesService {
     private void updateData(Exames entity, Exames obj) {
         entity.setName(obj.getName());
     }
+
+    public boolean existsByName(String name) {
+        return repository.existsByName(name);
+    }
 }
